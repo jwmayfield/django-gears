@@ -1,7 +1,7 @@
 import mimetypes
 import posixpath
 import time
-import urllib
+from urllib import parse
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
@@ -32,7 +32,7 @@ def serve(request, path, **kwargs):
         response.status_code = 304
         return response
 
-    normalized_path = posixpath.normpath(urllib.unquote(path)).lstrip('/')
+    normalized_path = posixpath.normpath(parse.unquote(path)).lstrip('/')
     try:
         asset = build_asset(environment, normalized_path)
     except FileNotFound:
