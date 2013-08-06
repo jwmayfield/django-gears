@@ -13,7 +13,7 @@ _cache = {}
 def _get_module(path):
     try:
         return import_module(path)
-    except ImportError, e:
+    except ImportError as e:
         raise ImproperlyConfigured('Error importing module %s: "%s".' % (path, e))
 
 
