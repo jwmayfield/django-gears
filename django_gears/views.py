@@ -10,7 +10,6 @@ from django.http import HttpResponse
 from django.utils.http import http_date
 
 from gears.assets import build_asset
-from gears.compat import bytes
 from gears.exceptions import FileNotFound
 
 from .settings import environment
@@ -43,7 +42,7 @@ def serve(request, path, **kwargs):
         asset = asset.processed_source
     mimetype, encoding = mimetypes.guess_type(normalized_path)
     mimetype = mimetype or 'application/octet-stream'
-    response = HttpResponse(bytes(asset), mimetype=mimetype)
+    response = HttpResponse(asset, mimetype=mimetype)
     if encoding:
         response['Content-Encoding'] = encoding
     response['Last-Modified'] = http_date(last_modified)
